@@ -10,7 +10,14 @@ class PretrainModel(nn.Module):
     def __init__(self, num_feat, num_hidden):
         super(PretrainModel, self).__init__()
 
-        self.encoder = nn.Sequential(nn.Linear(num_feat, num_hidden), nn.LeakyReLU())
+        self.encoder = nn.Sequential(
+            nn.BatchNorm1d(num_feat),
+            nn.Linear(num_feat, num_hidden),
+            nn.LeakyReLU(),
+            nn.BatchNorm1d(num_hidden),
+            nn.Linear(num_hidden, num_hidden),
+            nn.LeakyReLU(),
+        )
         self.mask_decoder = nn.Sequential(nn.Linear(num_hidden, num_feat), nn.Sigmoid())
         self.feat_decoder = nn.Linear(num_hidden, num_feat)
 
