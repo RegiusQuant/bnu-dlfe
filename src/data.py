@@ -50,6 +50,7 @@ def generate_pretraining_data(input_path, scaler_path, group_cols, mask_prob):
         input_unlab = load_pretrain_data(input_path, scaler_path, group_cols)
         input_mask = generate_mask(input_unlab, mask_prob)
         input_tilde, input_mask = generate_pretext(input_unlab, input_mask)
+        return input_tilde, input_unlab, input_mask
     else:
         input_groups = load_pretrain_data(input_path, scaler_path, group_cols)
 

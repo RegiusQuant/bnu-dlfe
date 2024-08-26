@@ -9,7 +9,7 @@ def run(args):
     running_config = generate_running_config(args)
 
     model = LitPretrainModel(running_config)
-    trainer = pl.Trainer(max_epochs=args.max_epochs, gpus=1, default_root_dir="outputs",
+    trainer = pl.Trainer(max_epochs=args.max_epochs, devices=1, default_root_dir="outputs",
                          reload_dataloaders_every_n_epochs=1)
     trainer.fit(model)
     trainer.save_checkpoint(args.model_path)
